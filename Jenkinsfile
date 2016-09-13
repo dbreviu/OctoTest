@@ -11,9 +11,12 @@ withCredentials([[$class: 'StringBinding', credentialsId: 'OctoAPIKey',
 		bat '''
 		cd src/octotest
 		dotnet publish
+		echo "packing"
 		octo pack --id OctoTest.Web.%BRANCH_NAME% --version %BUILD_NUMBER% --basePath bin/Debug/netcoreapp1.0/publish/ --format zip
+		echo "publishing"
 		octo push --package OctoTest.Web.%BRANCH_NAME%-%BUILD_NUMBER%.zip --server %OctoServer% --apikey API-%OctoAPIKey%
-		octo create-release --project OctoTest --version %BUILD_NUMBER% --packageversion %BRANCH_NAME%-%BUILD_NUMBER% --server %OctoServer% --apikey API-%OctoAPIKey% --deployto=Development
+		echo "creating release"
+		octo create-release --project OctoTest --version %BUILD_NUMBER% --packageversion %BUILD_NUMBER% --server %OctoServer% --apikey API-%OctoAPIKey% --deployto=Development
 		'''
 	stage 'Archive'
 		archive '**/*.zip'
