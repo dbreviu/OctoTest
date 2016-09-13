@@ -10,6 +10,7 @@ withCredentials([[$class: 'StringBinding', credentialsId: 'OctoAPIKey',
 	stage 'Build'
 		bat '''
 		cd src/octotest
+		dotnet restore
 		dotnet publish
 		echo "packing"
 		octo pack --id OctoTest.Web.%BRANCH_NAME% --version %BUILD_NUMBER% --basePath bin/Debug/netcoreapp1.0/publish/ --format zip
