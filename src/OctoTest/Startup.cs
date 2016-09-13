@@ -30,7 +30,7 @@ namespace OctoTest
 
             app.Run(async (context) =>
             {
-                await context.Response.WriteAsync("Hello World! This is doge version <b>SEVEN</b>");
+                await context.Response.WriteAsync("<html><marquee>Hello World! This is doge version 8</marquee></html>");
             });
         }
     }
