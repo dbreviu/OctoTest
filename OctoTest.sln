@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{87F4F64E-9EC1-4539-A0C3-753064D39CF9}"
 	ProjectSection(SolutionItems) = preProject
 		global.json = global.json
+		Jenkinsfile.txt = Jenkinsfile.txt
 	EndProjectSection
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "OctoTest", "src\OctoTest\OctoTest.xproj", "{7890AC1C-FA3D-445D-A843-028D1A3774F2}"
