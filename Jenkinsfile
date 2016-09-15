@@ -7,14 +7,7 @@ withCredentials([[$class: 'StringBinding', credentialsId: 'OctoAPIKey',
                     variable: 'OctoAPIKey']]) {
 	stage 'Checkout'
 		checkout scm
-	stage 'Set Version'
-		def originalV = version();
-		def major = originalV[0];
-		def minor = originalV[1];
-		def v = "${major}.${minor}-${env.BUILD_NUMBER}"
-		if (v) {
-		   echo "Building version ${v}"
-		}
+
 
 	stage 'Build'
 	    
