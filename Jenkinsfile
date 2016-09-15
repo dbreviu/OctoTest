@@ -13,15 +13,15 @@ withCredentials([[$class: 'StringBinding', credentialsId: 'OctoAPIKey',
 		dotnet restore
 		dotnet publish
 		echo "packing"
-		octo pack --id OctoTest.Web.%BRANCH_NAME% --version %BUILD_NUMBER% --basePath bin/Debug/netcoreapp1.0/publish/ --format zip
+		octo pack --id OctoTest.Web.%BRANCH_NAME% --version %BUILD_YEAR%.%BUILD_MONTH%.%BUILD_DAY%.%BUILDS_TODAY% --basePath bin/Debug/netcoreapp1.0/publish/ --format zip
 		echo "publishing"
-		octo push --package OctoTest.Web.%BRANCH_NAME%.%BUILD_NUMBER%.zip --server %OctoServer% --apikey API-%OctoAPIKey%
+		octo push --package OctoTest.Web.%BRANCH_NAME%.%BUILD_YEAR%.%BUILD_MONTH%.%BUILD_DAY%.%BUILDS_TODAY%.zip --server %OctoServer% --apikey API-%OctoAPIKey%
 		echo "creating release"
-		octo create-release --project OctoTest --version %BUILD_NUMBER% --packageversion %BUILD_NUMBER% --server %OctoServer% --apikey API-%OctoAPIKey% --deployto=Development
+		octo create-release --project OctoTest --version %BUILD_YEAR%.%BUILD_MONTH%.%BUILD_DAY%.%BUILDS_TODAY% --packageversion %BUILD_YEAR%.%BUILD_MONTH%.%BUILD_DAY%.%BUILDS_TODAY% --server %OctoServer% --apikey API-%OctoAPIKey% --deployto=Development
 		'''
 	stage 'Archive'
 		archive '**/*.zip'
 
-}
-}
+		}
+	}
 }
