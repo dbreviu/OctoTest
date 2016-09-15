@@ -32,3 +32,8 @@ withCredentials([[$class: 'StringBinding', credentialsId: 'OctoAPIKey',
 		}
 	}
 }
+
+
+def version() {
+    ${BUILD_YEAR}.${BUILD_MONTH}.${BUILD_DAY}.${BUILDS_TODAY}
+}
