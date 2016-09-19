@@ -1,3 +1,5 @@
+		version = VersionNumber('${BUILD_DATE_FORMATTED, \"yy-MM-dd\"}-${BUILDS_TODAY, XX}')
+
 node {
   
 
@@ -12,11 +14,10 @@ withCredentials([[$class: 'StringBinding', credentialsId: 'OctoAPIKey',
 
 
 	stage 'Build'
-		version = VersionNumber('${BUILD_YEAR}.${BUILD_MONTH}.${BUILD_DAY}.${BUILDS_TODAY}')
-
+		echo version
 		bat '''
 		echo ${env.version}
-		echo ${version}
+		echo '${version}'
 		echo ${env.BUILD_NUMBER}
 
 		echo %env%
@@ -25,7 +26,8 @@ withCredentials([[$class: 'StringBinding', credentialsId: 'OctoAPIKey',
 		echo %BUILD_NUMBER%
 		echo %version%
 		echo %env.version%
-		 
+		echo version
+
 		cd src/octotest
 		dotnet restore
 		dotnet publish
