@@ -2,7 +2,6 @@ node {
   
   echo env.BUILD_YEAR
 
-def v =%BUILD_YEAR%.%BUILD_MONTH%.%BUILD_DAY%.%BUILDS_TODAY%
 
 withCredentials([[$class: 'StringBinding', credentialsId: 'OctoServer',
                     variable: 'OctoServer']]) {
@@ -15,6 +14,8 @@ withCredentials([[$class: 'StringBinding', credentialsId: 'OctoAPIKey',
 	stage 'Build'
 	    
 		bat '''
+		echo %BUILD_YEAR%.%BUILD_MONTH%.%BUILD_DAY%.%BUILDS_TODAY%
+
 		cd src/octotest
 		dotnet restore
 		dotnet publish
