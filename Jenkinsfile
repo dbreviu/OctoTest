@@ -1,5 +1,5 @@
 node {
-  sh 'env | sort'
+  bat 'env | sort'
 
 def v = ${BUILD_YEAR}.${BUILD_MONTH}.${BUILD_DAY}.${BUILDS_TODAY}
 
