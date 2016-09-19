@@ -6,12 +6,15 @@ withCredentials([[$class: 'StringBinding', credentialsId: 'OctoServer',
                     variable: 'OctoServer']]) {
 withCredentials([[$class: 'StringBinding', credentialsId: 'OctoAPIKey',
                     variable: 'OctoAPIKey']]) {
+
+VersionNumber([[$class: 'VersionNumber', ]])
 	stage 'Checkout'
 		checkout scm
 
 
 	stage 'Build'
-		def v = VersionNumber('${BUILD_DATE_FORMATTED, \"yy-MM-dd\"}-${BUILDS_TODAY, XX}')
+		def v = VersionNumber projectStartDate: '2016-09-01', versionNumberString: '${BUILD_YEAR}.${BUILD_MONTH}.${BUILD_DAY}.${BUILDS_TODAY}', versionPrefix: ''
+
 	    
 		bat '''
 		cd src/octotest
