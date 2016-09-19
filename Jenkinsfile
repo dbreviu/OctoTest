@@ -1,5 +1,6 @@
 node {
   
+  echo env.BUILD_YEAR
 
 def v =%BUILD_YEAR%.%BUILD_MONTH%.%BUILD_DAY%.%BUILDS_TODAY%
 
