@@ -1,4 +1,4 @@
-		version = VersionNumber('${BUILD_DATE_FORMATTED, \"yyyy-MM-dd\"}-${BUILDS_TODAY, XX}')
+		version = VersionNumber('${BUILD_DATE_FORMATTED, \"yyyy.MM.dd\"}.${BUILDS_TODAY, XX}')
 
 node {
   
@@ -16,8 +16,6 @@ withCredentials([[$class: 'StringBinding', credentialsId: 'OctoAPIKey',
 	stage 'Build'
 		echo version
 		bat """
-		echo ${version}
-		echo version
 
 		cd src/octotest
 		dotnet restore
@@ -25,7 +23,7 @@ withCredentials([[$class: 'StringBinding', credentialsId: 'OctoAPIKey',
 		echo "packing"
 		octo pack --id OctoTest.Web.%BRANCH_NAME% --version ${version} --basePath bin/Debug/netcoreapp1.0/publish/ --format zip
 		echo "publishing"
-		octo push --package OctoTest.Web.${version}.zip --server %OctoServer% --apikey API-%OctoAPIKey%
+		octo push --package OctoTest.Web.%BRANCH_NAME%.${version}.zip --server %OctoServer% --apikey API-%OctoAPIKey%
 		echo "creating release"
 		octo create-release --project OctoTest --version ${version} --packageversion ${version} --server %OctoServer% --apikey API-%OctoAPIKey% --deployto=Development
 		"""
