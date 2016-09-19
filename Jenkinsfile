@@ -18,6 +18,14 @@ withCredentials([[$class: 'StringBinding', credentialsId: 'OctoAPIKey',
 		echo ${env.version}
 		echo ${version}
 		echo ${env.BUILD_NUMBER}
+
+		echo %env%
+
+		echo %env.BUILD_NUMBER%
+		echo %BUILD_NUMBER%
+		echo %version%
+		echo %env.version%
+		 
 		cd src/octotest
 		dotnet restore
 		dotnet publish
