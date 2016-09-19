@@ -1,4 +1,4 @@
-		version = VersionNumber('${BUILD_DATE_FORMATTED, \"yyyy.MM.dd\"}-${BUILDS_TODAY, XX}')
+		version = VersionNumber('${BUILD_DATE_FORMATTED, \"yyyy.MM.dd\"}v${BUILDS_TODAY, XX}')
 
 node {
   
