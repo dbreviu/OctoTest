@@ -12,19 +12,21 @@ withCredentials([[$class: 'StringBinding', credentialsId: 'OctoAPIKey',
 
 
 	stage 'Build'
-		def v = VersionNumber projectStartDate: '2016-09-01', versionNumberString: '${BUILD_YEAR}.${BUILD_MONTH}.${BUILD_DAY}.${BUILDS_TODAY}', versionPrefix: ''
+		def version = VersionNumber projectStartDate: '2016-09-01', versionNumberString: '${BUILD_YEAR}.${BUILD_MONTH}.${BUILD_DAY}.${BUILDS_TODAY}', versionPrefix: ''
 
 	    
 		bat '''
+		echo version
+		echo %version%
 		cd src/octotest
 		dotnet restore
 		dotnet publish
 		echo "packing"
-		octo pack --id OctoTest.Web.%BRANCH_NAME% --version %v% --basePath bin/Debug/netcoreapp1.0/publish/ --format zip
+		octo pack --id OctoTest.Web.%BRANCH_NAME% --version %version% --basePath bin/Debug/netcoreapp1.0/publish/ --format zip
 		echo "publishing"
-		octo push --package OctoTest.Web.%v%.zip --server %OctoServer% --apikey API-%OctoAPIKey%
+		octo push --package OctoTest.Web.%version%.zip --server %OctoServer% --apikey API-%OctoAPIKey%
 		echo "creating release"
-		octo create-release --project OctoTest --version %v% --packageversion %v% --server %OctoServer% --apikey API-%OctoAPIKey% --deployto=Development
+		octo create-release --project OctoTest --version %version% --packageversion %version% --server %OctoServer% --apikey API-%OctoAPIKey% --deployto=Development
 		'''
 	stage 'Archive'
 		archive '**/*.zip'
