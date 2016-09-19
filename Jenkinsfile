@@ -12,8 +12,6 @@ withCredentials([[$class: 'StringBinding', credentialsId: 'OctoAPIKey',
 
 
 	stage 'Build'
-		#def version = VersionNumber projectStartDate: '2016-09-01', versionNumberString: '${BUILD_YEAR}.${BUILD_MONTH}.${BUILD_DAY}.${BUILDS_TODAY}', versionPrefix: ''
-		# Version key/value should be on his own line
 		PACKAGE_VERSION=$(cat package.json \
 		  | grep version \
 		  | head -1 \
