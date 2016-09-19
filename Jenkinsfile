@@ -12,7 +12,7 @@ withCredentials([[$class: 'StringBinding', credentialsId: 'OctoAPIKey',
 
 
 	stage 'Build'
-		def version = VersionNumber('${BUILD_YEAR}.${BUILD_MONTH}.${BUILD_DAY}.${BUILDS_TODAY}')
+		version = VersionNumber('${BUILD_YEAR}.${BUILD_MONTH}.${BUILD_DAY}.${BUILDS_TODAY}')
 
 		bat '''
 		echo ${env.version}
