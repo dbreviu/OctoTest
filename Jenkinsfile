@@ -11,7 +11,7 @@ withCredentials([[$class: 'StringBinding', credentialsId: 'OctoAPIKey',
 
 
 	stage 'Build'
-		def v = VersionNumber("${BUILD_YEAR}.${BUILD_MONTH}.${BUILD_DAY}.${BUILDS_TODAY}")
+		def v = VersionNumber('${BUILD_YEAR}.${BUILD_MONTH}.${BUILD_DAY}.${BUILDS_TODAY}')
 	    
 		bat '''
 		cd src/octotest
