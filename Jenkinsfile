@@ -7,7 +7,6 @@ withCredentials([[$class: 'StringBinding', credentialsId: 'OctoServer',
 withCredentials([[$class: 'StringBinding', credentialsId: 'OctoAPIKey',
                     variable: 'OctoAPIKey']]) {
 
-VersionNumber([[$class: 'VersionNumber', ]])
 	stage 'Checkout'
 		checkout scm
 
