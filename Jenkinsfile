@@ -2,6 +2,7 @@
 	version = version.replaceAll("/","-")
 node {
   
+  def BRANCH_NAME = ${BRANCH_NAME}.replaceAll("/","-")
 
 
 withCredentials([[$class: 'StringBinding', credentialsId: 'OctoServer',
@@ -20,7 +21,6 @@ withCredentials([[$class: 'StringBinding', credentialsId: 'OctoAPIKey',
 		cd src/octotest
 		dotnet restore
 		dotnet publish
-		echo "packing"
 		octo pack --id OctoTest.Web --version ${version} --basePath bin/Debug/netcoreapp1.0/publish/ --format zip
 		echo "publishing"
 		octo push --package OctoTest.Web.${version}.zip --server %OctoServer% --apikey API-%OctoAPIKey%
@@ -33,5 +33,3 @@ withCredentials([[$class: 'StringBinding', credentialsId: 'OctoAPIKey',
 		}
 	}
 }
-
-
