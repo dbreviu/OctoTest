@@ -1,5 +1,5 @@
 	version = VersionNumber('${BUILD_DATE_FORMATTED, \"yyyy.MM.dd\"}-%BRANCH_NAME%.${BUILDS_TODAY, X}')
-
+	version = version.Replace("/","-")
 node {
   
 
