@@ -1,5 +1,6 @@
 	version = VersionNumber('${BUILD_DATE_FORMATTED, \"yyyy.MM.dd\"}-${BRANCH_NAME}.${BUILDS_TODAY, X}')
 	version = version.replaceAll("/","-")
+	
 node {
   
 
@@ -29,6 +30,23 @@ withCredentials([[$class: 'StringBinding', credentialsId: 'OctoAPIKey',
 	stage 'Archive'
 		archive '**/*.zip'
 
+		if(version.contains('release'))
+		{
+	
+			def userInput = input(
+			 id: 'userInput', message: 'Finish Release?',) 
+			stage 'Finish Release'
+			String branch = env.BRANCH_NAME
+			bat """
+			git branch 
+			git flow init -fd
+			git checkout ${branch}
+			"""
+			branch = branch.replaceAll("release/","")
+			bat """
+			git flow release finish ${branch} 
+			"""
+		}
 		}
 	}
 }
