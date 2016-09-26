@@ -1,6 +1,6 @@
 	version = VersionNumber('${BUILD_DATE_FORMATTED, \"yyyy.MM.dd\"}-${BRANCH_NAME}.${BUILDS_TODAY, X}')
 	version = version.replaceAll("/","-")
-	branch = ${BRANCH_NAME}.replaceAll("release/","")
+	branch = "${BRANCH_NAME}".replaceAll("release/","")
 node {
   
 
