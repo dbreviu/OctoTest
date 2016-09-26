@@ -29,7 +29,7 @@ withCredentials([[$class: 'StringBinding', credentialsId: 'OctoAPIKey',
 	stage 'Archive'
 		archive '**/*.zip'
 
-	if(${BRANCH_NAME}.contains('release'))
+	if(BRANCH_NAME.contains('release'))
 	{
 		def userInput = input(
 		 id: 'userInput', message: 'Finish Release?', parameters: [
@@ -40,7 +40,7 @@ withCredentials([[$class: 'StringBinding', credentialsId: 'OctoAPIKey',
 		{
 		stage 'Finish Release'
 		bat """
-		git flow release finish ${BRANCH_NAME}
+		git flow release finish %BRANCH_NAME%
 		"""
 		}
 	}
