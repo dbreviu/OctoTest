@@ -29,7 +29,7 @@ withCredentials([[$class: 'StringBinding', credentialsId: 'OctoAPIKey',
 	stage 'Archive'
 		archive '**/*.zip'
 
-	if(BRANCH_NAME.contains('release'))
+	if(version.contains('release'))
 	{
 		def userInput = input(
 		 id: 'userInput', message: 'Finish Release?', parameters: [
