@@ -1,6 +1,4 @@
-	def branchName = ${BRANCH_NAME}
-	branchName = branchName.replace('\\','-')
-	version = VersionNumber('${BUILD_DATE_FORMATTED, \"yyyy.MM.dd\"}-%branchName%.${BUILDS_TODAY, X}')
+	version = VersionNumber('${BUILD_DATE_FORMATTED, \"yyyy.MM.dd\"}-%BRANCH_NAME%.${BUILDS_TODAY, X}')
 
 node {
   
