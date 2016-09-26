@@ -24,7 +24,7 @@ withCredentials([[$class: 'StringBinding', credentialsId: 'OctoAPIKey',
 		echo "publishing"
 		octo push --package OctoTest.Web.${version}.zip --server %OctoServer% --apikey API-%OctoAPIKey%
 		echo "creating release"
-		octo create-release --project OctoTest --version ${version} --packageversion ${version} --server %OctoServer% --apikey API-%OctoAPIKey% --deployto=Development
+		octo create-release --project OctoTest --version ${version} --packageversion ${version} --server %OctoServer% --apikey API-%OctoAPIKey% 
 		"""
 	stage 'Archive'
 		archive '**/*.zip'
