@@ -29,6 +29,23 @@ withCredentials([[$class: 'StringBinding', credentialsId: 'OctoAPIKey',
 	stage 'Archive'
 		archive '**/*.zip'
 
+	if(${BRANCH_NAME}.contains('release')
+	{
+		def userInput = input(
+		 id: 'userInput', message: 'Finish Release?', parameters: [
+		 [$class: 'BooleanParameterDefinition', defaultValue: false, description: 'Check once the release has been promoted to production', name: 'release']
+		]) 
+		echo (userInput)
+		if(userInput)
+		{
+		stage 'Finish Release'
+		bat """
+		git flow release finish ${BRANCH_NAME}
+		"""
+		}
+	}
+		
+		
 		}
 	}
 }
