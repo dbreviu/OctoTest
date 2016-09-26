@@ -35,7 +35,13 @@ withCredentials([[$class: 'StringBinding', credentialsId: 'OctoAPIKey',
 			 id: 'userInput', message: 'Finish Release?',) 
 			stage 'Finish Release'
 			bat """
-			git flow release finish %BRANCH_NAME%
+			git checkout master
+			git merge --no-ff %BRANCH_NAME%
+			git tag -a 1.2.0
+			git checkout develop
+			git merge --no-ff %BRANCH_NAME%
+			git branch -d %BRANCH_NAME%
+			
 			"""
 		}
 		}
