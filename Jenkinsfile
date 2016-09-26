@@ -40,7 +40,7 @@ withCredentials([[$class: 'StringBinding', credentialsId: 'OctoAPIKey',
 			bat """
 			git flow init -fd
 			git checkout env.BRANCH_NAME
-			git flow release finish ${branch}
+			git flow release finish ${branch} 
 			"""
 		}
 		}
