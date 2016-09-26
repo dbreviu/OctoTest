@@ -39,7 +39,7 @@ withCredentials([[$class: 'StringBinding', credentialsId: 'OctoAPIKey',
 			branch = branch.replaceAll("release/","")
 			bat """
 			git flow init -fd
-			git checkout ${branch}
+			git checkout env.BRANCH_NAME
 			git flow release finish ${branch}
 			"""
 		}
