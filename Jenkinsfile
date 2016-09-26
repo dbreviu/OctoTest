@@ -1,5 +1,5 @@
-		version = VersionNumber('${BUILD_DATE_FORMATTED, \"yyyy.MM.dd\"}-%BRANCH_NAME%.${BUILDS_TODAY, X}')
-
+	version = VersionNumber('${BUILD_DATE_FORMATTED, \"yyyy.MM.dd\"}-${BRANCH_NAME}.${BUILDS_TODAY, X}')
+	version = version.replaceAll("/","-")
 node {
   
 
@@ -20,12 +20,11 @@ withCredentials([[$class: 'StringBinding', credentialsId: 'OctoAPIKey',
 		cd src/octotest
 		dotnet restore
 		dotnet publish
-		echo "packing"
 		octo pack --id OctoTest.Web --version ${version} --basePath bin/Debug/netcoreapp1.0/publish/ --format zip
 		echo "publishing"
 		octo push --package OctoTest.Web.${version}.zip --server %OctoServer% --apikey API-%OctoAPIKey%
 		echo "creating release"
-		octo create-release --project OctoTest --version ${version} --packageversion ${version} --server %OctoServer% --apikey API-%OctoAPIKey% --deployto=Development
+		octo create-release --project OctoTest --version ${version} --packageversion ${version} --server %OctoServer% --apikey API-%OctoAPIKey% 
 		"""
 	stage 'Archive'
 		archive '**/*.zip'
@@ -33,5 +32,3 @@ withCredentials([[$class: 'StringBinding', credentialsId: 'OctoAPIKey',
 		}
 	}
 }
-
-
