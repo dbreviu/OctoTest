@@ -35,7 +35,7 @@ withCredentials([[$class: 'StringBinding', credentialsId: 'OctoAPIKey',
 			def userInput = input(
 			 id: 'userInput', message: 'Finish Release?',) 
 			stage 'Finish Release'
-			String branch = "${BRANCH_NAME}"
+			String branch = env.BRANCH_NAME
 			branch = branch.replaceAll("release/","")
 			bat """
 			git flow init -fd
