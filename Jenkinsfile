@@ -36,7 +36,7 @@ withCredentials([[$class: 'StringBinding', credentialsId: 'OctoAPIKey',
 			stage 'Finish Release'
 			bat """
 			git flow init -fd
-			git flow release finish %BRANCH_NAME%
+			git flow release finish %BRANCH_NAME%.replaceAll("release/","")
 			"""
 		}
 		}
