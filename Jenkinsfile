@@ -1,8 +1,7 @@
-	version = VersionNumber('${BUILD_DATE_FORMATTED, \"yyyy.MM.dd\"}-%BRANCH_NAME%.${BUILDS_TODAY, X}')
+	version = VersionNumber('${BUILD_DATE_FORMATTED, \"yyyy.MM.dd\"}-BRANCH_NAME.${BUILDS_TODAY, X}')
 	version = version.replaceAll("/","-")
 node {
   
-  def BRANCH_NAME = ${BRANCH_NAME}.replaceAll("/","-")
 
 
 withCredentials([[$class: 'StringBinding', credentialsId: 'OctoServer',
