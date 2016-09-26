@@ -37,9 +37,7 @@ withCredentials([[$class: 'StringBinding', credentialsId: 'OctoAPIKey',
 			 id: 'userInput', message: 'Finish Release?',) 
 			stage 'Finish Release'
 			String branch = env.BRANCH_NAME
-			bat """
-			git tag -a v1.4 -m ${branch}
-			"""
+			
 			/*
 			bat """
 			git branch 
