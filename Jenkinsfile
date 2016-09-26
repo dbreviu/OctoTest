@@ -1,6 +1,6 @@
 	version = VersionNumber('${BUILD_DATE_FORMATTED, \"yyyy.MM.dd\"}-${BRANCH_NAME}.${BUILDS_TODAY, X}')
 	version = version.replaceAll("/","-")
-	branch = branch.replaceAll("release/","")
+	
 node {
   
 
@@ -36,7 +36,7 @@ withCredentials([[$class: 'StringBinding', credentialsId: 'OctoAPIKey',
 			 id: 'userInput', message: 'Finish Release?',) 
 			stage 'Finish Release'
 			String branch = "${BRANCH_NAME}"
-
+			branch = branch.replaceAll("release/","")
 			bat """
 			git flow init -fd
 			git flow release finish ${branch}
