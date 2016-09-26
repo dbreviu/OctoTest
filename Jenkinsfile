@@ -37,6 +37,7 @@ withCredentials([[$class: 'StringBinding', credentialsId: 'OctoAPIKey',
 			 id: 'userInput', message: 'Finish Release?',) 
 			stage 'Finish Release'
 			String branch = env.BRANCH_NAME
+			/*
 			bat """
 			git branch 
 			git checkout ${branch}
@@ -46,6 +47,7 @@ withCredentials([[$class: 'StringBinding', credentialsId: 'OctoAPIKey',
 			git flow init -fd
 			git flow release finish ${branch} 
 			"""
+			*/
 		}
 		}
 	}
