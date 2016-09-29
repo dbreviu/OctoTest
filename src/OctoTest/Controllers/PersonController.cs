@@ -36,9 +36,22 @@ namespace OctoTest.Controllers
         {
            
                 var result = GetPeople();
-                if (!string.IsNullOrWhiteSpace(name))
-                    result = result.Where(p => p.FirstName.Contains(name) || p.LastName.Contains(name)).ToList();
-                if(!string.IsNullOrWhiteSpace(phone))
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                if (name.Contains(" "))
+                {
+                    var firstName = name.Split(' ')[0];
+                    var lastName = name.Split(' ')[1];
+                    result = result.Where(p => p.FirstName.StartsWith(firstName) || p.LastName.StartsWith(lastName)).ToList();
+
+                }
+                else
+                {
+                    result = result.Where(p => p.FirstName.StartsWith(name) || p.LastName.StartsWith(name)).ToList();
+                }
+
+                }
+                if (!string.IsNullOrWhiteSpace(phone))
                     result = result.Where(p => p.Phone.Contains(phone)).ToList();
                 if (!string.IsNullOrWhiteSpace(zip))
                     result = result.Where(p => p.Zip.Contains(zip)).ToList();
