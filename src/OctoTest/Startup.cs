@@ -29,20 +29,24 @@ namespace OctoTest
             public void ConfigureServices(IServiceCollection services)
             {
                 // Add framework services.
-                services.AddMvc();
                 services.AddCors();
-            }
+                services.AddMvc();
 
-            // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-            public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        }
+
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
             {
                 app.UseDeveloperExceptionPage();
 
                 loggerFactory.AddConsole(Configuration.GetSection("Logging"));
                 loggerFactory.AddDebug();
-                app.UseMvc();
+                
                 app.UseCors(builder =>
-                    builder.WithOrigins("http://dantestserver.centralus.cloudapp.azure.com/","http://localhost:4200"));
+                    builder.AllowAnyOrigin().AllowAnyMethod()
+                    //.WithOrigins("http://dantestserver.centralus.cloudapp.azure.com/","http://localhost:4200")
+                    .AllowAnyHeader());
+            app.UseMvc();
 
         }
         }
