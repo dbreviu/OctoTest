@@ -4,34 +4,44 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 namespace OctoTest
 {
-    public class Startup
-    {
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
-        public void ConfigureServices(IServiceCollection services)
-        {
-        }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public class Startup
         {
-            loggerFactory.AddConsole();
-
-            if (env.IsDevelopment())
+            public Startup(IHostingEnvironment env)
             {
-                app.UseDeveloperExceptionPage();
+                var builder = new ConfigurationBuilder()
+                    .SetBasePath(env.ContentRootPath)
+                    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                    .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                    .AddEnvironmentVariables();
+                Configuration = builder.Build();
             }
 
-            app.Run(async (context) =>
+            public IConfigurationRoot Configuration { get; }
+
+            // This method gets called by the runtime. Use this method to add services to the container.
+            public void ConfigureServices(IServiceCollection services)
             {
-                await context.Response.WriteAsync("<html><body style='background-color:#888'>Hello World! CI Test</body></html>");
-            });
+                // Add framework services.
+                services.AddMvc();
+                services.AddCors();
+            }
+
+            // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+            public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+            {
+                loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+                loggerFactory.AddDebug();
+                app.UseMvc();
+                app.UseCors(builder =>
+                    builder.WithOrigins("http://dantestserver.centralus.cloudapp.azure.com/"));
+
+        }
         }
     }
-}
