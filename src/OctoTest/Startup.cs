@@ -42,7 +42,7 @@ namespace OctoTest
                 loggerFactory.AddDebug();
                 app.UseMvc();
                 app.UseCors(builder =>
-                    builder.WithOrigins("http://dantestserver.centralus.cloudapp.azure.com/"));
+                    builder.WithOrigins("http://dantestserver.centralus.cloudapp.azure.com/","http://localhost:4200"));
 
         }
         }
