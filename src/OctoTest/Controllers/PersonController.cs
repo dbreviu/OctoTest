@@ -42,7 +42,7 @@ namespace OctoTest.Controllers
                 {
                     var firstName = name.Split(' ')[0];
                     var lastName = name.Split(' ')[1];
-                    result = result.Where(p => p.FirstName.ToLower().StartsWith(firstName) || p.LastName.ToLower().StartsWith(lastName)).ToList();
+                    result = result.Where(p => p.FirstName.ToLower().StartsWith(firstName) && p.LastName.ToLower().StartsWith(lastName)).ToList();
 
                 }
                 else
