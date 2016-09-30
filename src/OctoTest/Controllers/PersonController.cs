@@ -34,7 +34,7 @@ namespace OctoTest.Controllers
 
         public List<Person> SearchPerson([FromQuery] string name, [FromQuery] string phone, [FromQuery] string zip)
         {
-           
+            name = name.ToLower();
                 var result = GetPeople();
             if (!string.IsNullOrWhiteSpace(name))
             {
@@ -42,12 +42,12 @@ namespace OctoTest.Controllers
                 {
                     var firstName = name.Split(' ')[0];
                     var lastName = name.Split(' ')[1];
-                    result = result.Where(p => p.FirstName.StartsWith(firstName) || p.LastName.StartsWith(lastName)).ToList();
+                    result = result.Where(p => p.FirstName.ToLower().StartsWith(firstName) || p.LastName.ToLower().StartsWith(lastName)).ToList();
 
                 }
                 else
                 {
-                    result = result.Where(p => p.FirstName.StartsWith(name) || p.LastName.StartsWith(name)).ToList();
+                    result = result.Where(p => p.FirstName.ToLower().StartsWith(name) || p.LastName.ToLower().StartsWith(name)).ToList();
                 }
 
                 }
