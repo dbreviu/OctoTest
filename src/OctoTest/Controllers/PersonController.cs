@@ -34,6 +34,10 @@ namespace OctoTest.Controllers
 
         public List<Person> SearchPerson([FromQuery] string name, [FromQuery] string phone, [FromQuery] string zip)
         {
+            if(string.IsNullOrWhiteSpace(name))
+            {
+                return null;
+            }
             name = name.ToLower();
                 var result = GetPeople();
             if (!string.IsNullOrWhiteSpace(name))
